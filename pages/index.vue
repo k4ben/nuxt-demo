@@ -1,10 +1,15 @@
-<script setup>
-import { ref } from 'vue';
+<script lang="ts" setup>
+import { onMounted, ref } from 'vue';
+
+export interface Post {
+  name: string,
+  content: string
+}
 
 const name = ref("");
 const message = ref("");
 
-function setName(n) {
+function setName(n: string) {
   name.value = n;
 }
 
@@ -13,14 +18,15 @@ function sendMessage() {
   message.value = "";
 }
 
-const posts = ref([
-  {name: "Ben", content: "Does this work?"},
-  {name: "Emil", content: "Yeah I think it does lol"}
-])
+const posts = ref([] as Post[]);
+
+const { data: fetchedPosts } = await useFetch('/api/posts');
+posts.value = fetchedPosts.value || [];
+
 </script>
 <template>
 <main class="container">
-  <Modal @closeModal="setName" v-if="!name"/>
+  <Modal @closeModal="setName" v-if="!name && false"/>
   <article>
     <textarea placeholder="Compose a post..." v-model="message"></textarea>
     <button @click="sendMessage">Post</button>
