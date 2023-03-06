@@ -1,22 +1,23 @@
-import posts from "../dbModels/Post";
-import type { Post } from "../../pages/index.vue";
+import posts from '../dbModels/Post';
+import type { Post } from '../../pages/index.vue';
 
 export default defineEventHandler(async (event) => {
-  const { name, content } = event.context.params as { name: string, content: string};
+  const { name, content } = await readBody(event);
   try {
     const newUserData = await posts.create({
-      name, content
+      name,
+      content
     });
     return {
       name: newUserData.name,
-      content: newUserData.content,
+      content: newUserData.content
     };
   } catch (err) {
     console.dir(err);
-    event.res.statusCode = 500;
+    event.node.res.statusCode = 500;
     return {
-      code: "ERROR",
-      message: "Something wrong.",
+      code: 'ERROR',
+      message: 'Something wrong.'
     };
   }
 });
