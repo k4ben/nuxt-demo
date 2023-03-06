@@ -6,4 +6,4 @@ const schema = new mongoose.Schema(
   },
   { timestamps: true, strict: true, strictQuery: true }
 );
-export default mongoose.model("Post", schema, "post");
+export default mongoose.model("Post", schema, "posts");

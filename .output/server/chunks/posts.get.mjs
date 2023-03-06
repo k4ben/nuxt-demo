@@ -1,18 +1,9 @@
 import { defineEventHandler } from 'h3';
-import mongoose from 'mongoose';
-
-const schema = new mongoose.Schema(
-  {
-    name: String,
-    content: String
-  },
-  { timestamps: true, strict: true, strictQuery: true }
-);
-const posts = mongoose.model("Post", schema, "post");
+import { p as posts } from './Post.mjs';
+import 'mongoose';
 
 const posts_get = defineEventHandler(async (event) => {
   try {
-    console.log("Find posts");
     const postsData = await posts.find();
     return postsData.map((post) => ({
       name: post.name,

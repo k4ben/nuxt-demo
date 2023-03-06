@@ -1,10 +1,10 @@
-import posts from "../dbModels/Post.ts";
+import posts from "../dbModels/Post";
+import type { Post } from "../../pages/index.vue";
 
 export default defineEventHandler(async (event) => {
   try {
-    console.log("Find posts");
     const postsData = await posts.find();
-    return postsData.map((post) => ({
+    return postsData.map((post: Post) => ({
       name: post.name,
       content: post.content,
     }));
