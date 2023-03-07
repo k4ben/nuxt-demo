@@ -8,4 +8,6 @@ RUN yarn install
 
 COPY . .
 
-CMD yarn start
+RUN yarn build
+
+CMD node .output/server/index.mjs
