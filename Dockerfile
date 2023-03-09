@@ -8,4 +8,8 @@ RUN yarn install
 
 COPY . .
 
-CMD yarn start
+RUN yarn build
+
+ENV MONGO_URI=mongodb://mongodb
+
+CMD node .output/server/index.mjs
